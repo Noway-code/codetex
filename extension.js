@@ -31,15 +31,23 @@ function activate(context) {
 		vscode.window.showInformationMessage('Hello World from CodeTeX!');
 	});
 
-	const HelloLaTeXCommand = vscode.commands.registerCommand('codetex.hellolatexcommand', function () {
+	const countdownCommand = vscode.commands.registerCommand('codetex.countdown', function () {
 		// The code you place here will be executed every time your command is executed
+		const now = new Date();
+		const dayOfWeek = now.getDay();
+		const daysUntilMonday = (8 - dayOfWeek) % 7;
+		const targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysUntilMonday, 23, 59, 0);
+		const diffMs = targetDate - now;
+		const diffHrs = Math.floor(diffMs / (1000 * 60 * 60));
+		const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
 
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello LaTeX from CodeTeX!');
+		vscode.window.showInformationMessage(`You have ${diffHrs} hours and ${diffMins} minutes to complete this project!`);
+
 	});
 
 	context.subscriptions.push(disposable);
-	context.subscriptions.push(HelloLaTeXCommand);
+	context.subscriptions.push(countdownCommand);
 }
 
 // This method is called when your extension is deactivated

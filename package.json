@@ -17,8 +17,8 @@
       "title": "Hello World"
     },
     {
-      "command": "codetex.hellolatexcommand",
-      "title": "Hello LaTeX"
+      "command": "codetex.countdown",
+      "title": "Countdown"
     }]
   },
   "scripts": {
