@@ -3,23 +3,28 @@
   "displayName": "CodeTeX",
   "description": "A fast light-weight in-line source code to LaTeX renderer for mathematical operations!",
   "version": "0.0.1",
+  "publisher": "Noway-Code", 
   "engines": {
     "vscode": "^1.95.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:plaintext"
+  ],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "codetex.helloWorld",
-      "title": "Hello World"
-    },
-    {
-      "command": "codetex.countdown",
-      "title": "Countdown"
-    }]
+    "commands": [
+      {
+        "command": "codetex.helloWorld",
+        "title": "Hello World"
+      },
+      {
+        "command": "codetex.countdown",
+        "title": "Countdown"
+      }
+    ]
   },
   "scripts": {
     "lint": "eslint .",
