@@ -13,7 +13,7 @@ from evaluate import load
 bleu = load("bleu")
 
 # Load the dataset directly from a CSV file
-dataset = load_dataset('csv', data_files='seq2seq/dataset.csv')
+dataset = load_dataset('csv', data_files='data/dataset.csv')
 
 # Ensure the dataset has 'code' and 'equation' columns
 print("Dataset columns:", dataset['train'].column_names)
