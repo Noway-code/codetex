@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 const vscode = require('vscode');
 
 /**
@@ -36,7 +37,7 @@ function provideHover(document, position, token) {
 }
 
 function registerHoverProvider() {
-    return vscode.languages.registerHoverProvider('plaintext', {
+    return vscode.languages.registerHoverProvider('javascript', {
         provideHover
     });
 }

@@ -1,0 +1,160 @@
+code,equation
+"def add(a, b):
+    return a + b","add(a, b) = a + b"
+"def linear_function(x):
+    return a * x + b",linear_function(x) = a * x + b
+"def add(a, b):
+    return a + b","add(a, b) = a + b"
+"def linear_function(x):
+    return m * x + c",linear_function(x) = m * x + c
+"def subtract(x, y):
+    return x - y","subtract(x, y) = x - y"
+"def multiply(u, v):
+    return u * v","multiply(u, v) = u × v"
+"def divide(numerator, denominator):
+    return numerator / denominator","divide(numerator, denominator) = numerator ÷ denominator"
+"def power(x):
+    return x ** n",power(x) = x^n
+"def quadratic(x):
+    return a * x**2 + b * x + c",quadratic(x) = ax² + bx + c
+"def cubic(x):
+    return a * x**3 + b * x**2 + c * x + d",cubic(x) = ax³ + bx² + cx + d
+"def exponential(x):
+    return e ** x",exponential(x) = e^x
+"def logarithm(x):
+    return math.log(x, b)",logarithm(x) = log_b(x)
+"def sine(theta):
+    return math.sin(theta)",sine(theta) = sin(theta)
+"def cosine(theta):
+    return math.cos(theta)",cosine(theta) = cos(theta)
+"def tangent(theta):
+    return math.tan(theta)",tangent(theta) = tan(theta)
+"def factorial(n):
+    return math.factorial(n)",factorial(n) = n!
+"def absolute_value(x):
+    return abs(x)",absolute_value(x) = |x|
+"def modulo(x, y):
+    return x % y","modulo(x, y) = x mod y"
+"def hypotenuse(a, b):
+    return math.sqrt(a**2 + b**2)","hypotenuse(a, b) = √(a² + b²)"
+"def relu(x):
+    return max(0, x)","relu(x) = max(0, x)"
+"def harmonic_mean(a, b):
+    return 2 / (1/a + 1/b)","harmonic_mean(a, b) = 2 / (1/a + 1/b)"
+"def geometric_mean(a, b):
+    return (a * b) ** 0.5","geometric_mean(a, b) = √(a × b)"
+"def arithmetic_mean(a, b):
+    return (a + b) / 2","arithmetic_mean(a, b) = (a + b) ÷ 2"
+"def binomial_coefficient(n, k):
+    return math.comb(n, k)","binomial_coefficient(n, k) = C(n, k)"
+"def nth_root(x):
+    return x ** (1 / n)",nth_root(x) = x^(1/n)
+"def log_base(x):
+    return math.log(x, b)",log_base(x) = log_b(x)
+"def sinh(x):
+    return math.sinh(x)",sinh(x) = sinh(x)
+"def cosh(x):
+    return math.cosh(x)",cosh(x) = cosh(x)
+"def tanh(x):
+    return math.tanh(x)",tanh(x) = tanh(x)
+"def arcsin(x):
+    return math.asin(x)",arcsin(x) = sin⁻¹(x)
+"def arccos(x):
+    return math.acos(x)",arccos(x) = cos⁻¹(x)
+"def arctan(x):
+    return math.atan(x)",arctan(x) = tan⁻¹(x)
+"def max_value(a, b):
+    return max(a, b)","max_value(a, b) = max(a, b)"
+"def min_value(a, b):
+    return min(a, b)","min_value(a, b) = min(a, b)"
+"def gcd(a, b):
+    return math.gcd(a, b)","gcd(a, b) = gcd(a, b)"
+"def lcm(a, b):
+    return abs(a * b) // math.gcd(a, b)","lcm(a, b) = lcm(a, b)"
+"def heaviside(x):
+    return 1 if x >= 0 else 0",heaviside(x) = 1 if x ≥ 0 else 0
+"def euler_totient(n):
+",euler_totient(n) = φ(n)
+"def complex_conjugate(a, b):
+    return (a, -b)",complex_conjugate(a + bi) = a - bi
+"def dot_product(a1, a2, b1, b2):
+    return a1 * b1 + a2 * b2","dot_product((a1, a2), (b1, b2)) = a1b1 + a2b2"
+"def cross_product(a1, a2, a3, b1, b2, b3):
+    return (a2*b3 - a3*b2, a3*b1 - a1*b3, a1*b2 - a2*b1)","cross_product((a1, a2, a3), (b1, b2, b3)) = (a2b3 - a3b2, a3b1 - a1b3, a1b2 - a2b1)"
+"def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a",fibonacci(n) = F_{n}
+"def lucas(n):
+    a, b = 2, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a",lucas(n) = L_{n}
+"def bessel(n, x):
+","bessel(n, x) = J_{n}(x)"
+"def legendre(n, x):
+","legendre(n, x) = P_{n}(x)"
+"def chebyshev(n, x):
+","chebyshev(n, x) = T_{n}(x)"
+"def beta(x, y):
+    return math.gamma(x) * math.gamma(y) / math.gamma(x + y)","beta(x, y) = Γ(x)Γ(y) / Γ(x + y)"
+"def gamma(x):
+    return math.gamma(x)",gamma(x) = Γ(x)
+"def error_function(x):
+",error_function(x) = erf(x)
+"def sigmoid_prime(x):
+    s = sigmoid(x)
+    return s * (1 - s)",sigmoid_prime(x) = sigmoid(x)(1 - sigmoid(x))
+"def softplus(x):
+    return math.log(1 + math.exp(x))",softplus(x) = ln(1 + e^x)
+"def leaky_relu(x):
+    return x if x > 0 else alpha * x",leaky_relu(x) = x if x > 0 else alphax
+"def inverse_function(y):
+",inverse_function(y) = f⁻¹(y)
+"def hypergeometric(a, b, c, z):
+","hypergeometric(a, b, c, z) = ₂F₁(a, b; c; z)"
+"def parabola(x):
+    return a * (x - h) ** 2 + k",parabola(x) = a(x - h)² + k
+"def circle_equation(x, y):
+    return (x - h) ** 2 + (y - k) ** 2 - r ** 2","circle_equation(x, y) = (x - h)² + (y - k)² = r²"
+"def ellipse_equation(x, y):
+    return ((x - h) ** 2) / a ** 2 + ((y - k) ** 2) / b ** 2 - 1","ellipse_equation(x, y) = ((x - h)² / a²) + ((y - k)² / b²) = 1"
+"def hyperbola_equation(x, y):
+    return ((x - h) ** 2) / a ** 2 - ((y - k) ** 2) / b ** 2 - 1","hyperbola_equation(x, y) = ((x - h)² / a²) - ((y - k)² / b²) = 1"
+"def logistic_map(x):
+    return r * x * (1 - x)",logistic_map(x) = rx(1 - x)
+"def weierstrass(x):
+",weierstrass(x) = W(x)
+"def dirac_delta(x):
+",dirac_delta(x) = δ(x)
+"def heaviside(x):
+    return 0 if x < 0 else 1",heaviside(x) = 0 if x < 0 else 1
+"def sinc(x):
+    return 1 if x == 0 else math.sin(x) / x",sinc(x) = sin(x) / x
+"def ramp(x):
+    return x if x > 0 else 0",ramp(x) = x if x > 0 else 0
+"def unit_step(x):
+    return 1 if x >= 0 else 0",unit_step(x) = 1 if x ≥ 0 else 0
+"def rectangular(x):
+    return 1 if abs(x) <= width / 2 else 0",rectangular(x) = 1 if |x| ≤ width/2 else 0
+"def triangular(x):
+    return max(0, (width / 2 - abs(x)) / (width / 2))","triangular(x) = max(0, 1 - 2|x| / width)"
+"def sawtooth_wave(x):
+    return 2 * (x / period - math.floor(x / period + 0.5))",sawtooth_wave(x) = 2(x/period - floor(x/period + 0.5))
+"def square_wave(x):
+    return 1 if (x % period) < period / 2 else -1",square_wave(x) = 1 if x mod period < period/2 else -1
+"def kronecker_delta(i, j):
+    return 1 if i == j else 0","kronecker_delta(i, j) = δ₍ij₎"
+"def permutation(n, k):
+    return math.perm(n, k)","permutation(n, k) = P(n, k)"
+"def rising_factorial(x, n):
+    result = 1
+    for i in range(n):
+        result *= x + i
+    return result","rising_factorial(x, n) = (x)^{(n)}"
+"def falling_factorial(x, n):
+    result = 1
+    for i in range(n):
+        result *= x - i
+    return result","falling_factorial(x, n) = (x)_{(n)}"
