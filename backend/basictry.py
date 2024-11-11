@@ -64,10 +64,10 @@ python_to_latex = {
     '**': r' \mathbin{**} ',
     '//': r' \mathbin{//} ',
     '%': r' \mathbin{\%} ',
-    '(': r'\left( ',
-    ')': r'\right) ',
-    '[': r'\left[ ',
-    ']': r'\right] ',
+    '(': r'( ',
+    ')': r') ',
+    '[': r'[ ',
+    ']': r'] ',
     '{': r'\left\{ ',
     '}': r'\right\} ',
     '#': r'\#',
@@ -131,28 +131,7 @@ python_to_latex = {
     'scipy.stats.poisson': r'\textbf{poisson} ',
     'scipy.stats.binom': r'\textbf{binom} ',
 }
-import re
 
-python_to_latex = {
-    'def': r'\textbf{\text{def}} ',
-    'return': r'\textbf{\text{return}} ',
-    'if': r'\textbf{\text{if}} ',
-    'else': r'\textbf{\text{else}} ',
-    'elif': r'\textbf{\text{elif}} ',
-    'for': r'\textbf{\text{for}} ',
-    'while': r'\textbf{\text{while}} ',
-    'in': r'\textbf{\text{in}} ',
-    'and': r'\textbf{\text{and}} ',
-    'or': r'\textbf{\text{or}} ',
-    'not': r'\textbf{\text{not}} ',
-    'True': r'\textbf{\text{True}}',
-    'False': r'\textbf{\text{False}}',
-    'None': r'\textbf{\text{None}}',
-    'print': r'\textbf{\text{print}} ',
-    'input': r'\textbf{\text{input}} ',
-    'math.sqrt': r'\sqrt ',
-    'abs': r'\textbf{\text{abs}} ',
-}
 
 def escape_latex_special_chars(text):
     """Escape special characters in LaTeX."""
@@ -160,7 +139,7 @@ def escape_latex_special_chars(text):
                      '&': r'\&', '^': r'\^{}', '\\': r'\\textbackslash ', '~': r'\~{}'}
     return ''.join(special_chars.get(char, char) for char in text)
 
-def print_tokens(long_string):
+def generate_latex(long_string):
     lines = long_string.splitlines()
     in_multiline_string = False
     
@@ -228,27 +207,5 @@ def print_tokens(long_string):
                     print(token, end=' ')
         print(r'\\')  # Newline for LaTeX
 
-# Test case
-long_string = """
-def foo(x, y):
-     # calculating discriminant using formula
-    dis = b * b - 4 * a * c 
-    sqrt_val = math.sqrt(abs(dis)) 
-    
-    # checking condition for discriminant
-    if dis > 0: 
-        print("real and different roots") 
-        print((-b + sqrt_val)/(2 * a)) 
-        print((-b - sqrt_val)/(2 * a)) 
-    
-    elif dis == 0: 
-        print("real and same roots") 
-        print(-b / (2 * a)) 
-    
-    # when discriminant is less than 0
-    else:
-        print("Complex Roots") 
-        print(- b / (2 * a), + i, sqrt_val / (2 * a)) 
-        print(- b / (2 * a), - i, sqrt_val / (2 * a)) 
-"""
-print_tokens(long_string)
+long_string = "(-b + math.sqrt(b**2 - 4*a*c)) / (2*a) + math.pow(x, 2)"
+generate_latex(long_string)

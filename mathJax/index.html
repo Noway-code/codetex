@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>KaTeX renderer</title>
+  <title>KaTeX Renderer</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css" crossorigin="anonymous">
   
   <style>
@@ -39,7 +39,7 @@
 </head>
 <body>
 
-  <textarea id="latex-input" placeholder="Enter LaTeX code here...">\frac{a}{b} = c</textarea>
+  <textarea id="latex-input" placeholder="Enter LaTeX code here...">\textbf{def foo} \textbf{foo} ( x , y ) \\& \text{calculating discriminant using formula} \\& dis = b * b - 4 * a * c \\& sqrt\_val = \sqrt ( \textbf{\text{abs}} ( dis ) ) \\</textarea>
   
   <div id="rendered-output">
     <!-- Rendered LaTeX will appear here -->
@@ -47,56 +47,7 @@
 
   <!-- KaTeX JS -->
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js" crossorigin="anonymous"></script>
-  
-  <script>
-    (function() {
-      const input = document.getElementById('latex-input');
-      const output = document.getElementById('rendered-output');
-      let debounceTimeout;
-      let lastRendered = '';
-
-      const renderLaTeX = (latex) => {
-        if (latex === lastRendered) return;
-        lastRendered = latex;
-
-        // Clear previous content to prevent residuals
-        output.innerHTML = '';
-        try {
-          // Render LaTeX directly into the output div element using KaTeX.
-          katex.render(latex, output, {
-            throwOnError: false,
-            displayMode: true,
-          });
-        } catch (error) {
-          // Display error message without halting execution
-          output.innerHTML = `<span class="error">Error: ${error.message}</span>`;
-        }
-      };
-
-      const debounce = (func, delay) => {
-        return (...args) => {
-          if (debounceTimeout) clearTimeout(debounceTimeout);
-          debounceTimeout = setTimeout(() => func.apply(this, args), delay);
-        };
-      };
-
-      const debouncedRender = debounce(() => {
-        const latex = input.value.trim();
-        if (latex) {
-          renderLaTeX(latex);
-        } else {
-          output.innerHTML = '';
-          lastRendered = '';
-        }
-      }, 1); // variable delay
-
-      document.addEventListener('DOMContentLoaded', () => {
-        renderLaTeX(input.value.trim());
-      });
-
-      input.addEventListener('input', debouncedRender);
-    })();
-  </script>
+  <script src="renderer.js"></script>
 
 </body>
 </html>

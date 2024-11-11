@@ -7,6 +7,28 @@ const vscode = require('vscode');
  * @returns {string} The reversed text.
  */
 
+async function passCodeToPython(code) {
+    try {
+        const response = await fetch('http://127.0.0.1:5000/passPython', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ code: code }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log(result);
+    } catch (error) {
+        console.error('Error passing code to Python:', error);
+    }
+}
+
+
 function provideHover(document, position, token) {
     const range = document.getWordRangeAtPosition(position);
     const word = range ? document.getText(range) : '';
@@ -32,12 +54,14 @@ function provideHover(document, position, token) {
 
     // Create a Markdown string for the hover
     const hoverContent = new vscode.MarkdownString(`**Context:**\n\`\`\`plaintext\n${contextText}\n\`\`\``);
+    hoverContent.appendMarkdown('\n\n**Pasing Python Code**');
+    passCodeToPython(document.lineAt(currentLine).text);
 
     return new vscode.Hover(hoverContent);
 }
 
 function registerHoverProvider() {
-    return vscode.languages.registerHoverProvider('javascript', {
+    return vscode.languages.registerHoverProvider('plaintext', {
         provideHover
     });
 }

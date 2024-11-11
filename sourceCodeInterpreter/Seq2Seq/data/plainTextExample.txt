@@ -1,50 +1,7 @@
-Line 1: This is an example text file.
-Line 2: It contains 25 lines of text.
-Line 3: Each line is a simple sentence.
-Line 4: The purpose is to demonstrate text content.
-Line 5: You can use this as a template.
-Line 6: Modify it as per your needs.
-Line 7: Text files are easy to create.
-Line 8: They are also easy to read.
-Line 9: You can use any text editor.
-Line 10: Text files are versatile.
-Line 11: They can store various types of data.
-Line 12: From simple notes to complex configurations.
-Line 13: Text files are platform-independent.
-Line 14: They work on any operating system.
-Line 15: This makes them very useful.
-Line 16: You can share them easily.
-Line 17: Text files are lightweight.
-Line 18: They do not take much space.
-Line 19: This is another advantage.
-Line 20: You can back them up quickly.
-Line 21: Text files are human-readable.
-Line 22: This is important for documentation.
-Line 23: You can search within them easily.
-Line 24: Text files are a fundamental tool.
-Line 25: They are essential for many tasks.
-Line 26: Text files can be edited with scripts.
-Line 27: This allows for automation.
-Line 28: You can process them with various tools.
-Line 29: Text files are compatible with many programs.
-Line 30: They can be used for data exchange.
-Line 31: Text files are simple yet powerful.
-Line 32: They are used in many applications.
-Line 33: From programming to system administration.
-Line 34: Text files are easy to parse.
-Line 35: You can extract information from them.
-Line 36: Text files can be compressed.
-Line 37: This saves storage space.
-Line 38: You can encrypt text files.
-Line 39: This ensures data security.
-Line 40: Text files can be versioned.
-Line 41: This helps in tracking changes.
-Line 42: Text files are used in configuration.
-Line 43: Many software use them for settings.
-Line 44: Text files can be formatted.
-Line 45: You can use markup languages.
-Line 46: Text files are used in documentation.
-Line 47: They are easy to update.
-Line 48: Text files can be printed.
-Line 49: This makes them versatile.
-Line 50: Text files are a basic tool.
+(-b + math.sqrt(b**2 - 4*a*c)) / (2*a)
+x**2 + y**2
+sin(theta) + cos(phi)
+exp(i*pi) + 1
+integrate(exp(-x**2) (x -oo oo))
+limit(sin(x)/x x 0)
+diff(sin(x)*cos(x) x)
