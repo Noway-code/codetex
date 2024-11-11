@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from python_to_latex import python_to_latex
-from basictry import generate_latex
+from code_interpreter import code_interpreter
 
 app = Flask(__name__)
 
@@ -10,9 +10,8 @@ def receive_python():
     code = request.json.get("code")
     # Convert the code to LaTeX
     print(code)
-    latex_code = generate_latex(code)
+    latex_code = code_interpreter(code)
     print (latex_code)
-    # Return the LaTeX code
     return jsonify({"latex_code": latex_code}), 200
 
 if __name__ == '__main__':

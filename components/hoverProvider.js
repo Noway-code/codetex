@@ -1,11 +1,7 @@
 /* eslint-disable no-unused-vars */
 const vscode = require('vscode');
 
-/**
- * Reverses a given string.
- * @param {string} text The text to reverse.
- * @returns {string} The reversed text.
- */
+let lastLineContent = '';  // Cache to store last line's content
 
 async function passCodeToPython(code) {
     try {
@@ -22,14 +18,15 @@ async function passCodeToPython(code) {
         }
 
         const result = await response.json();
-        console.log(result);
+        console.log(result.latex_code);
+        return result.latex_code;
     } catch (error) {
         console.error('Error passing code to Python:', error);
+        return 'Error retrieving LaTeX code';
     }
 }
 
-
-function provideHover(document, position, token) {
+async function provideHover(document, position, token) {
     const range = document.getWordRangeAtPosition(position);
     const word = range ? document.getText(range) : '';
 
@@ -37,6 +34,17 @@ function provideHover(document, position, token) {
         return;
     }
 
+    // Get the current line text
+    const currentLineText = document.lineAt(position.line).text;
+
+    if (currentLineText === lastLineContent) {
+        return;  // Skip processing if the content hasn't changed
+    }
+    lastLineContent = currentLineText;  // Update the cache with the new content
+
+
+    // Commented out multi-line functionality
+    /*
     // Get the current line number
     const currentLine = position.line;
 
@@ -51,11 +59,13 @@ function provideHover(document, position, token) {
     }
 
     const contextText = lines.join('\n');
+    */
+
+    // Asynchronously get the LaTeX output from the Python server
+    const oneLineLatex = await passCodeToPython(currentLineText);
 
     // Create a Markdown string for the hover
-    const hoverContent = new vscode.MarkdownString(`**Context:**\n\`\`\`plaintext\n${contextText}\n\`\`\``);
-    hoverContent.appendMarkdown('\n\n**Pasing Python Code**');
-    passCodeToPython(document.lineAt(currentLine).text);
+    const hoverContent = new vscode.MarkdownString(`**Converted LaTeX Code:**\n\`\`\`plaintext\n${oneLineLatex}\n\`\`\``);
 
     return new vscode.Hover(hoverContent);
 }
