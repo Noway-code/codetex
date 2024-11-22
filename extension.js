@@ -1,5 +1,6 @@
+// extension.js
 const vscode = require('vscode');
-const { registerHoverProvider } = require('./components/hoverProvider.js');
+const { registerHoverProvider, clearCache } = require('./components/hoverProvider.js');
 
 /**
  * This method is called when your extension is activated.
@@ -23,6 +24,13 @@ function activate(context) {
         const diffMins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
         vscode.window.showInformationMessage(`Hi, you have ${diffHrs} hours and ${diffMins} minutes to complete this project!`);
     });
+
+    let disposable = vscode.commands.registerCommand('codetex.clearCache', () => {
+        clearCache();
+        vscode.window.showInformationMessage('CodeTeX cache cleared.');
+    });
+
+    context.subscriptions.push(disposable);
 
     const hoverProvider = registerHoverProvider();
 
