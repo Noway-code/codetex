@@ -18,11 +18,17 @@ async function passCodeToPython(code) {
         }
 
         const result = await response.json();
-        console.log(result.latex_code);
-        return result.latex_code;
+
+        if (result.error) {
+            console.error('Error from Python server:', result.error);
+            return { latex_code: 'Error retrieving LaTeX code', image: null };
+        }
+
+        console.log('Received LaTeX Code:', result.latex_code);
+        return { latex_code: result.latex_code, image: result.image };
     } catch (error) {
         console.error('Error passing code to Python:', error);
-        return 'Error retrieving LaTeX code';
+        return { latex_code: 'Error retrieving LaTeX code', image: null };
     }
 }
 
@@ -42,36 +48,28 @@ async function provideHover(document, position, token) {
     }
     lastLineContent = currentLineText;  // Update the cache with the new content
 
+    // Asynchronously get the LaTeX output from the Python server
+    const { latex_code, image } = await passCodeToPython(currentLineText);
 
-    // Commented out multi-line functionality
-    /*
-    // Get the current line number
-    const currentLine = position.line;
-
-    // Calculate the range for 5 lines above and below
-    const startLine = Math.max(currentLine - 5, 0);
-    const endLine = Math.min(currentLine + 5, document.lineCount - 1);
-
-    // Retrieve the lines
-    const lines = [];
-    for (let i = startLine; i <= endLine; i++) {
-        lines.push(document.lineAt(i).text);
+    if (!image) {
+        // If there's an error or no image, display the LaTeX code as plaintext
+        const hoverContent = new vscode.MarkdownString(`**Converted LaTeX Code:**\n\`\`\`plaintext\n${latex_code}\n\`\`\``);
+        return new vscode.Hover(hoverContent);
     }
 
-    const contextText = lines.join('\n');
-    */
+    // Create a Markdown string for the hover, embedding the image
+    // Use data URI scheme for the image
+    const imageUri = `data:image/png;base64,${image}`;
+    const hoverContent = new vscode.MarkdownString(`**Converted LaTeX Code:**\n![LaTeX](${imageUri})`);
 
-    // Asynchronously get the LaTeX output from the Python server
-    const oneLineLatex = await passCodeToPython(currentLineText);
-
-    // Create a Markdown string for the hover
-    const hoverContent = new vscode.MarkdownString(`**Converted LaTeX Code:**\n\`\`\`plaintext\n${oneLineLatex}\n\`\`\``);
+    // Enable trusted content to allow images to be rendered
+    hoverContent.isTrusted = true;
 
     return new vscode.Hover(hoverContent);
 }
 
 function registerHoverProvider() {
-    return vscode.languages.registerHoverProvider('plaintext', {
+    return vscode.languages.registerHoverProvider(['plaintext', 'python'], {
         provideHover
     });
 }

@@ -1,6 +1,6 @@
-(-b + math.sqrt(b**2 - 4*a*c)) / (2*a) + math.pow(x, 2)
+(-b + math.sqrt(b**2 - 4*t*c)) / (2*a) + math.pow(x, 2)
 x**2 + y**2
-sin(theta) + cos(phi)
+a = sin(theta) + cos(phi)
 exp(i*pi) + 1
 (math.sin(a) + math.cos(b)) * math.tan(c)
 math.sqrt(x**3 + y**3) + math.pow(z, 5)
