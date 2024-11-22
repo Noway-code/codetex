@@ -11,8 +11,8 @@
     "Other"
   ],
   "activationEvents": [
-      "onLanguage:python",
-      "onLanguage:plaintext"
+    "onLanguage:python",
+    "onLanguage:plaintext"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -24,7 +24,11 @@
       {
         "command": "codetex.countdown",
         "title": "Countdown"
-      }
+      },
+      {
+        "command": "codetex.clearCache",
+        "title": "CodeTeX: Clear Cache"
+    }
     ]
   },
   "scripts": {
@@ -42,6 +46,7 @@
   },
   "dependencies": {
     "katex": "^0.16.11",
+    "lru-cache": "^11.0.2",
     "which": "^5.0.0"
   }
 }

@@ -5,7 +5,8 @@ const { spawn } = require('child_process');
 const path = require('path');
 const which = require('which');
 
-let lastLineContent = '';  // Cache to store last line's content
+// Initialize an in-memory cache using Map
+const expressionCache = new Map();
 
 /**
  * Finds the Python executable on the user's system.
@@ -92,14 +93,37 @@ async function provideHover(document, position, token) {
         return;
     }
 
-    // Get the current line text
-    const currentLineText = document.lineAt(position.line).text;
+    // Get the entire line text
+    const currentLineText = document.lineAt(position.line).text.trim();
 
-    if (currentLineText === lastLineContent) {
-        return;  // Skip processing if the content hasn't changed
+    // Check if the current line's result is already cached
+    if (expressionCache.has(currentLineText)) {
+        const cachedResult = expressionCache.get(currentLineText);
+        console.log(`Cache hit for line: "${currentLineText}"`);
+
+        if (cachedResult.error) {
+            // If there was an error previously, do not show a hover
+            return null;
+        }
+
+        const { latex_code, image } = cachedResult;
+
+        if (!image) {
+            // If image is missing, do not display any hover
+            return null;
+        }
+
+        // Create a Markdown string for the hover, embedding the image
+        const imageUri = `data:image/png;base64,${image}`;
+        const hoverContent = new vscode.MarkdownString(`**Converted LaTeX Code:**\n![LaTeX](${imageUri})`);
+
+        // Enable trusted content to allow images to be rendered
+        hoverContent.isTrusted = true;
+
+        return new vscode.Hover(hoverContent);
     }
-    lastLineContent = currentLineText;  // Update the cache with the new content
 
+    // Proceed with processing if not cached
     // Path to the Python processing script
     const scriptPath = path.join(__dirname, '..', 'backend', 'process_expression.py');
 
@@ -108,6 +132,9 @@ async function provideHover(document, position, token) {
 
     try {
         const result = await executePythonScript(scriptPath, currentLineText);
+
+        // Cache the result for future use
+        expressionCache.set(currentLineText, result);
 
         if (result.error) {
             console.error('Error from Python script:', result.error);
@@ -123,7 +150,6 @@ async function provideHover(document, position, token) {
         }
 
         // Create a Markdown string for the hover, embedding the image
-        // Use data URI scheme for the image
         const imageUri = `data:image/png;base64,${image}`;
         const hoverContent = new vscode.MarkdownString(`**Converted LaTeX Code:**\n![LaTeX](${imageUri})`);
 
@@ -133,17 +159,32 @@ async function provideHover(document, position, token) {
         return new vscode.Hover(hoverContent);
     } catch (error) {
         console.error('Error processing hover:', error);
+        // Optionally, cache the error to prevent re-processing
+        expressionCache.set(currentLineText, { error: error.toString() });
         // Do not display any hover if there's an error
         return null;
     }
 }
 
+/**
+ * Registers the hover provider for specified languages.
+ * @returns {vscode.Disposable} The hover provider disposable.
+ */
 function registerHoverProvider() {
     return vscode.languages.registerHoverProvider(['plaintext', 'python'], {
         provideHover
     });
 }
 
+/**
+ * Clears the expression cache.
+ */
+function clearCache() {
+    expressionCache.clear();
+    console.log('Expression cache has been cleared.');
+}
+
 module.exports = {
-    registerHoverProvider
+    registerHoverProvider,
+    clearCache
 };
