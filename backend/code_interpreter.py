@@ -1,4 +1,4 @@
-# parser.py
+# backend/code_interpreter.py
 
 import matplotlib.pyplot as plt
 import io
@@ -12,6 +12,7 @@ import sympy as sp
 
 # Error Handler
 import logging
+import sys  # Ensure sys is imported
 
 # Configure logging
 logging.basicConfig(level=logging.ERROR, format='%(levelname)s: %(message)s')
@@ -147,8 +148,15 @@ def convert_math_to_sympy_ast(math_expr, mapping):
     transformed_tree = transformer.visit(tree)
     ast.fix_missing_locations(transformed_tree)
 
-    # For Python 3.9 and above, use ast.unparse
-    sympy_string = ast.unparse(transformed_tree)
+    try:
+        # For Python 3.9 and above, use ast.unparse
+        sympy_string = ast.unparse(transformed_tree)
+    except AttributeError:
+        # For older Python versions, use astor
+        import astor
+        sympy_string = astor.to_source(transformed_tree).strip()
+
+    print(f"SymPy String: {sympy_string}", file=sys.stderr)  # Redirected to stderr
 
     return sympy_string
 
@@ -178,14 +186,13 @@ def code_interpreter_generic(long_string):
 
     Parameters:
         long_string (str): The Python math expression or assignment statement.
-
     Returns:
         str: The corresponding LaTeX expression or an error message.
     """
     try:
         # Step 1: Transform the Python expression or statement to a SymPy-compatible string
         sympy_string = convert_math_to_sympy_ast(long_string, GENERIC_MATH_TO_SYMPY_DYNAMIC)
-        print("SymPy String:", sympy_string)
+        # print("SymPy String:", sympy_string)  # Already handled in convert_math_to_sympy_ast
 
         # Step 2: Extract symbols (variables) from the original expression or statement
         symbols_in_expr = extract_symbols(long_string)
@@ -213,7 +220,6 @@ def code_interpreter_generic(long_string):
                 value_expr = assign_node.value
 
                 # Convert the value expression back to string
-            
                 value_str = ast.unparse(value_expr)
                 # Parse the value expression
                 sympy_expr = parse_expr(value_str, local_dict=custom_locals, transformations=transformations)
@@ -239,7 +245,6 @@ def render_latex_to_png(latex_code):
 
     Parameters:
         latex_code (str): The LaTeX code to render.
-
     Returns:
         str: The base64-encoded PNG image.
     """
@@ -280,6 +285,6 @@ if __name__ == "__main__":
     ]
 
     for expr in expressions:
-        print(f"Expression: {expr}")
+        print(f"Expression: {expr}", file=sys.stderr)
         latex_output = code_interpreter_generic(expr)
-        print(f"LaTeX: {latex_output}\n")
+        print(f"LaTeX: {latex_output}\n", file=sys.stderr)

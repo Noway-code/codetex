@@ -11,7 +11,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:plaintext"
+      "onLanguage:python",
+      "onLanguage:plaintext"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -40,6 +41,7 @@
     "eslint": "^9.13.0"
   },
   "dependencies": {
-    "katex": "^0.16.11"
+    "katex": "^0.16.11",
+    "which": "^5.0.0"
   }
 }

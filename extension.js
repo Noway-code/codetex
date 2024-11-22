@@ -1,3 +1,4 @@
+// extension.js
 const vscode = require('vscode');
 const { registerHoverProvider } = require('./components/hoverProvider.js');
 
