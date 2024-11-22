@@ -78,63 +78,6 @@ function executePythonScript(scriptPath, code) {
 }
 
 /**
- * Creates a webview panel to display LaTeX using KaTeX.
- * @param {string} latexCode - The LaTeX code to render.
- */
-function showLaTeXInWebview(latexCode) {
-    const panel = vscode.window.createWebviewPanel(
-        'latexPreview',
-        'LaTeX Preview',
-        vscode.ViewColumn.Beside,
-        {
-            enableScripts: true
-        }
-    );
-
-    panel.webview.html = getWebviewContent(latexCode);
-}
-
-/**
- * Generates the HTML content for the webview with KaTeX.
- * @param {string} latex - The LaTeX code to render.
- * @returns {string} HTML content.
- */
-function getWebviewContent(latex) {
-    return `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src https://cdn.jsdelivr.net; style-src https://cdn.jsdelivr.net 'unsafe-inline';">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css">
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js"></script>
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js"
-            onload="renderMath()"></script>
-        <script>
-            function renderMath() {
-                renderMathInElement(document.body, {
-                    delimiters: [
-                        {left: "$$", right: "$$", display: true},
-                        {left: "$", right: "$", display: false}
-                    ]
-                });
-            }
-        </script>
-        <style>
-            body {
-                background-color: transparent;
-                font-family: Arial, sans-serif;
-                padding: 10px;
-            }
-        </style>
-    </head>
-    <body>
-        <p>$$${latex}$$</p>
-    </body>
-    </html>`;
-}
-
-/**
  * Provides hover information by converting code to LaTeX.
  * @param {vscode.TextDocument} document
  * @param {vscode.Position} position
@@ -168,19 +111,15 @@ async function provideHover(document, position, token) {
 
         if (result.error) {
             console.error('Error from Python script:', result.error);
-            // Display the error as plaintext in the hover
-            const hoverContent = new vscode.MarkdownString(`**Error:** ${result.error}`);
-            hoverContent.isTrusted = true;
-            return new vscode.Hover(hoverContent);
+            // Do not display any hover if there's an error (i.e., non-expression line)
+            return null;
         }
 
         const { latex_code, image } = result;
 
         if (!image) {
-            // If there's an error or no image, display the LaTeX code as plaintext
-            const hoverContent = new vscode.MarkdownString(`**Converted LaTeX Code:**\n\`\`\`plaintext\n${latex_code}\n\`\`\``);
-            hoverContent.isTrusted = true;
-            return new vscode.Hover(hoverContent);
+            // If image is missing, do not display any hover
+            return null;
         }
 
         // Create a Markdown string for the hover, embedding the image
@@ -194,9 +133,8 @@ async function provideHover(document, position, token) {
         return new vscode.Hover(hoverContent);
     } catch (error) {
         console.error('Error processing hover:', error);
-        const hoverContent = new vscode.MarkdownString(`**Error:** ${error}`);
-        hoverContent.isTrusted = true;
-        return new vscode.Hover(hoverContent);
+        // Do not display any hover if there's an error
+        return null;
     }
 }
 

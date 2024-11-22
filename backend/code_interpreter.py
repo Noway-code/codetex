@@ -282,6 +282,8 @@ if __name__ == "__main__":
         "math.log2(x) + y * math.cos(z)",
         "cmath.polar(z)",
         "a = sin(theta) + cos(phi)",        # Assignment Statement
+        "print('Hello World')",             # Non-expression line
+        "# This is a comment",               # Non-expression line
     ]
 
     for expr in expressions:
