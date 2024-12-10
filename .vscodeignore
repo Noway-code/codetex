@@ -1,10 +1,15 @@
-.vscode/**
-.vscode-test/**
-test/**
-.gitignore
-.yarnrc
-vsc-extension-quickstart.md
-**/jsconfig.json
-**/*.map
-**/eslint.config.mjs
-**/.vscode-test.*
+# Exclude everything by default
+*
+
+# Include only what is necessary
+!dist/
+!dist/**
+
+!package.json
+!README.md
+!LICENSE
+!icon.png
+
+# Exclude node_modules
+node_modules/
+.venv/

@@ -2,7 +2,7 @@
   "name": "codetex",
   "displayName": "CodeTeX",
   "description": "A fast light-weight in-line source code to LaTeX renderer for mathematical operations!",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "Noway-Code",
   "engines": {
     "vscode": "^1.95.0"
@@ -14,7 +14,7 @@
     "onLanguage:python",
     "onLanguage:plaintext"
   ],
-  "main": "./extension.js",
+  "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
@@ -28,21 +28,29 @@
       {
         "command": "codetex.clearCache",
         "title": "CodeTeX: Clear Cache"
-    }
+      }
     ]
   },
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "build": "webpack --mode production",
+    "watch": "webpack --mode development --watch"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
     "@types/mocha": "^10.0.9",
     "@types/node": "20.x",
     "@types/vscode": "^1.95.0",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1",
-    "eslint": "^9.13.0"
+    "babel-loader": "^9.2.1",
+    "eslint": "^9.13.0",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
     "katex": "^0.16.11",
