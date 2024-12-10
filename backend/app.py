@@ -5,9 +5,7 @@ app = Flask(__name__)
 
 @app.route('/passPython', methods=['POST'])
 def receive_python():
-    # Retrieve the code from the request
     code = request.json.get("code")
-    # Convert the code to LaTeX
     print(f"Received code: {code}")
     latex_code = code_interpreter_generic(code)
     print(f"Generated LaTeX: {latex_code}")

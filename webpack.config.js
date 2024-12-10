@@ -5,13 +5,13 @@ const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   entry: {
-    extension: './extension.js', // Update this path to your main JS file
+    extension: './extension.js',
   },
   target: 'node',
   externals: [
     nodeExternals(),
     {
-      vscode: 'commonjs vscode' // Add this line
+      vscode: 'commonjs vscode'
     }
   ],
   output: {
@@ -26,7 +26,7 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader', // Optional: If using Babel
+          loader: 'babel-loader',
           options: {
             presets: ['@babel/preset-env'],
           },

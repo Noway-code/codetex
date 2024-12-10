@@ -1,5 +1,3 @@
-# generic_mappings.py
-
 import math
 import numpy
 import scipy.special
@@ -28,7 +26,5 @@ def get_all_math_functions(*modules):
 # Initialize the generic mapping by inspecting desired modules
 GENERIC_MATH_TO_SYMPY_DYNAMIC = get_all_math_functions(math, numpy, scipy.special, cmath)
 
-# Override specific mappings for better SymPy compatibility
-GENERIC_MATH_TO_SYMPY_DYNAMIC['pow'] = 'Pow'  # Map 'pow' to SymPy's 'Pow'
-# Add more overrides if necessary, e.g.,
-# GENERIC_MATH_TO_SYMPY_DYNAMIC['log2'] = 'log'  # Already handled in transformer
+# Weird edge cases
+GENERIC_MATH_TO_SYMPY_DYNAMIC['pow'] = 'Pow'

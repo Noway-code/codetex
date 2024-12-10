@@ -1,5 +1,3 @@
-# backend/code_interpreter.py
-
 import matplotlib.pyplot as plt
 import io
 import base64

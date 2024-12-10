@@ -1,5 +1,3 @@
-# backend/process_expression.py
-
 import sys
 import json
 from code_interpreter import code_interpreter_generic, render_latex_to_png

@@ -1,7 +1,6 @@
 # Exclude everything by default
 *
 
-# Include only what is necessary
 !dist/
 !dist/**
 
@@ -9,7 +8,5 @@
 !README.md
 !LICENSE
 !icon.png
-
-# Exclude node_modules
 node_modules/
 .venv/

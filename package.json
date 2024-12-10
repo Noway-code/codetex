@@ -1,7 +1,7 @@
 {
   "name": "codetex",
   "displayName": "CodeTeX",
-  "description": "A fast light-weight in-line source code to LaTeX renderer for mathematical operations!",
+  "description": "A fast light-weight in-line source code to LaTeX renderer for python mathematical operations!",
   "version": "1.0.1",
   "publisher": "Noway-Code",
   "engines": {
@@ -10,21 +10,22 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onLanguage:python",
-    "onLanguage:plaintext"
-  ],
   "main": "./dist/extension.js",
   "contributes": {
+    "languages": [
+      {
+        "id": "python",
+        "aliases": [
+          "Python",
+          "python"
+        ],
+        "extensions": [
+          ".py"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
     "commands": [
-      {
-        "command": "codetex.helloWorld",
-        "title": "Hello World"
-      },
-      {
-        "command": "codetex.countdown",
-        "title": "Countdown"
-      },
       {
         "command": "codetex.clearCache",
         "title": "CodeTeX: Clear Cache"
